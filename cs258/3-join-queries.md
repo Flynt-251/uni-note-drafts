@@ -128,4 +128,24 @@ FROM A RIGHT OUTER JOIN B ON (A.b < B.b);
 | 2 | 3 | 4 | 5 |
 | 0 | 1 | 3 | 6 |
 
+Note that we don't have any null values for the right outer join, again, because the right-hand table is prioritised. By not specifying left or right, we can create a **Full Outer Join**, which is the union of both a left and right outer join.
 
+```sql
+SELECT *
+FROM A OUTER JOIN B ON (A.b < B.b);
+```
+
+|A.a|A.b|B.b|B.c|
+|---|---|---|---|
+| 0 | 1 | 4 | 5 |
+| 0 | 1 | 3 | 6 |
+| 2 | 3 | 4 | 5 |
+| 2 | 3 |NULL|NULL|
+
+## You're just USING me
+
+Sometimes you may see `USING` used instead of `ON`. This lets you specify a common attribute on which to join on, where both tables have the same value for that attribute, like a natural join.
+
+```sql
+SELECT * FROM A INNER JOIN B USING (b);
+```

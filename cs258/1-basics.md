@@ -45,6 +45,51 @@ DATETIME           Combined date and time value (e.g. in UNIX time)
 BOOLEAN            True or False
 ```
 
+### ALTER
+
+Add, remove or modify an attribute of a table, or change a table's name.
+
+```sql
+ALTER TABLE DISCS ADD COLUMN msrp FLOAT;
+```
+
+```sql
+ALTER TABLE DISCS DROP COLUMN releaseYear;
+```
+
+```sql
+ALTER TABLE DISCS MODIFY COLUMN region VARCHAR(16);
+```
+
+```sql
+ALTER TABLE BADNAME RENAME TO BETTERNAME;
+```
+
+```sql
+ALTER TABLE DISCS RENAME COLUMN loc TO discStatus;
+```
+
+#### Create Constraints
+
+```sql
+ALTER DISCS
+ADD CONSTRAINT statuses discStatus = 'On Shelf' OR discStatus = 'Being Borrowed';
+```
+
+```sql
+ALTER TABLE DISCS DROP CONSTRAINT statuses;
+```
+
+### Assertions
+
+Assertions are a level above constraints, checking information across the entire database instead of a single table. These are used to detect "fail states".
+
+```sql
+CREATE ASSERTION DISCLIMIT CHECK NOT EXISTS(
+    SELECT * FROM DISCS GROUP BY title HAVING COUNT(*) > 10;
+)
+```
+
 ### DROP
 
 *the funny one*
@@ -53,11 +98,13 @@ BOOLEAN            True or False
 DROP TABLE DISCS;
 ```
 
+The deletion can be `CASCADE`d to remove references to the table in other tables, i.e. nullify foreign keys. Oppositely, to prevent breaking references in other tables, dropping can be `RESTRICT`ed.
+
 ```sql
 DROP SCHEMA GAMES;
 ```
 
-Removes the specified table or schema, respectively. Use with caution (unless you're specifically not doing so, because you're being a silly goose :3).
+Removes the specified schema. Use with caution (unless you're specifically not doing so, because you're being a silly goose :3).
 
 ## Data Manipulation Statements
 
@@ -122,3 +169,14 @@ WHERE platform = 'Codename Dolphin';
 ```
 
 Modify a set of records that satisfy the constraints, with the specified new data.
+
+## VIEWs
+
+Views are like a cross between a query and a table. They are defined using a SELECT query, and can be accessed later by referencing it the same way you would reference a table. These are very useful if you have a (sub-)query that you're likely to run multiple times.
+
+```sql
+CREATE VIEW EuropeanWiiGames AS
+    SELECT serialNum, title, genre, developer, publisher, loc
+    FROM DISCS
+    WHERE platform = 'Wii' AND region = 'E';
+```
