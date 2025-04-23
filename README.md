@@ -8,7 +8,7 @@ Below is the list of modules that will be written up, in order of priority.
 
 - [ ] CS260 - Algorithms
 - [ ] CS241 - Operating Systems and Computer Networks
-- [ ] CS258 - Database Systems
+- [x] CS258 - Database Systems
 
 ### Working on soon™
 
