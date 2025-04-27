@@ -47,9 +47,9 @@ To generalise this, whenever we have $n$ steps, such that $n > 2$, before we mov
 
 Our naive solution is using divide and conquer, which creates two sub-problems of size $n-1$ and $n-2$, which is roughly equivalent to $\frac{n}{1}$. We assume addition to combine the two sub-problems takes constant time. Hence, we have...
 
-$T(n) = 2T(n) + O(1)$
+$T(n) = T(n-1) + T(n-2) + c$
 
-Which results in the exponential time complexity!
+Which, when drawn as a recursion tree, looks very ugly.
 
 ### OPT function
 
