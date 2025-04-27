@@ -12,17 +12,15 @@ Just quickly, we'll remind ourselves of the three different problems we solve us
 
 Most of our discussion focusses on decision problems.
 
-## Served with a side of Ps
+We define a set of different classes of complexity to describe how hard it is to solve different problems. Here's an explanation of each below.
 
-We define a set of different classes of complexity to describe how hard it is to solve different problems.
-
-### P, aka Tractable
+## P, aka Tractable
 
 All problems that are *solvable* in polynomial time, i.e. there exists some algorithm with time complexity $O(n^k)$ for some constant $k$.
 
 **To prove a problem is in P, create a polynomial time algorithm for it.**
 
-### NP, and how to create a verifier
+## NP, and how to create a verifier
 
 All decision problems that are *verifiable* in polynomial time. These problems are not necessarily solvable in polynomial time, but we are able to, given a possible answer, verify the correctness of such an answer in polynomial time.
 
@@ -51,7 +49,7 @@ One of the great questions in CS is whether or not P = NP. If you'd like to irre
 
 **To prove a problem is in NP, show that given an instance of said problem, we can check whether an answer to said instance is correct.**
 
-### NP-Complete and Reducibility
+## NP-Complete and Reducibility
 
 Any decision problem that is in NP, and is capable of reducing any other NP problem to this one. Wait, wtf is reducibility?
 
@@ -69,7 +67,7 @@ If we assumed $MAX$ takes constant or linear time, then this algorithm runs in l
 
 **To prove a problem is NP-Complete, find a known NP-Complete problem, and reduce it to this problem.** You can also prove a problem is in NP if you can reduce it to an NP-Complete problem.
 
-### NP-Hard and where Non-decision problems lie
+## NP-Hard and where Non-decision problems lie
 
 *You know who **else** is-*
 
@@ -77,7 +75,7 @@ If we assumed $MAX$ takes constant or linear time, then this algorithm runs in l
 
 **To prove a problem is NP-Hard, reduce an NP-Complete problem to it, i.e. given problem $X$ and NP-Complete problem $Y$, X is NP-Hard *iff* $Y \leq_P X$.**
 
-### And for your reference...
+## And for your reference...
 
 A useful diagram from Wikipedia to help you visualise the relationship between these classes.
 
