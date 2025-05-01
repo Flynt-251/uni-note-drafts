@@ -7,7 +7,7 @@ Below is the list of modules that will be written up, in order of priority.
 ### Currently Working on
 
 - [x] CS260 - Algorithms
-- [ ] CS241 - Operating Systems and Computer Networks
+- [x] CS241 - Operating Systems and Computer Networks
 - [x] CS258 - Database Systems
 
 ### Working on soon™
