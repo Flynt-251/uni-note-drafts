@@ -1,6 +1,6 @@
 # OS2 - Processes
 
-In order to run a **Program**, a *passive entity* that is stored on a disk, we must load it into memory, where it becomes a **Process**, which is active. A program can create multiple processes, e.g. by running multiple instances of it. Processes are what allow operating systems to run any sort of application, they define how running applications are stored in memory and how to manage them. For *Restaurant Ouvert Souvent*, processes are tasks such as preparing a dish, consuming a dish, cleaning, etc.
+In order to run a **Program**, a *passive entity* that is stored on a disk, we must load it into memory, where it becomes a **Process**, which is active. A program can create multiple processes, e.g. by running multiple instances of it. Processes are what allow operating systems to run any sort of application, they define how running applications are stored in memory and how to manage them.
 
 ## A memory of a process
 
