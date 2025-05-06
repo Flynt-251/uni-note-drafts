@@ -4,19 +4,19 @@ This is a repo to store all of the drafts for revision notes which will be publi
 
 Below is the list of modules that will be written up, in order of priority.
 
-### Currently Working on
+### Complete
 
 - [x] CS260 - Algorithms
 - [x] CS241 - Operating Systems and Computer Networks
 - [x] CS258 - Database Systems
 
-### Working on soon™
+### In the works
 
-- CS259 - Formal Languages
-- CS262 - Logic and Verification
-- CS257 - Advanced Computer Architecture
-- CS263 - Cyber Security
-- CS261 - Software Engineering
+- [ ] CS259 - Formal Languages
+- [ ] CS262 - Logic and Verification
+- [ ] CS257 - Advanced Computer Architecture
+- [ ] CS263 - Cyber Security
+- [ ] CS261 - Software Engineering
 
 First year modules will *not* have notes written up, as there are already links to other great resources for these modules, some of which have been written by me. The content of these modules is more general anyway.
 
