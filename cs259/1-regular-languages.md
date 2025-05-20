@@ -2,7 +2,7 @@
 
 In vague colloquial terms, a regular language is a language where we can determine a valid string, without any prior knowledge as we are reading. In other words, as we read a string, we are in one state at a time, and determining whether or not the string is valid, is dependent on this state and the letter we are currently reading. This definition hints at the use of a **Deterministic Finite Automaton** (DFA), which we can use to represent a regular language. We can also represent a regular language using regular expressions.
 
-## Deez Figurez r Amuzing
+## Deez Figures are Amusing
 
 A **Determinisitic Finite Automaton** (DFA) bears resemblance to a directed graph, in that we have states (vertices) that we can transition between (like edges). A DFA is defined with the following notation:
 
@@ -17,7 +17,9 @@ So it's a five-tuple with five symbols we've never seen before. So let's go over
 - $\delta : Q \times \Sigma \rightarrow Q$ - The transition function (🏳️‍⚧️?). This defines how we can move between states, given what input we have.
   - $\delta(q_a, \alpha) = q_b$ where $q_a, q_b \in Q$ and $\alpha \in \Sigma$
 
-As you can imagine, the transition function does a lot of heavy lifting for us. We can represent its *function*ality using either a state diagram, or a state transition table.
+As you can imagine, the transition function does a lot of heavy lifting for us. We can represent its *function*ality using either a state diagram, or a state transition table. The former is easier to get your head around, so here's an example for the language $\{a^nb^m : n,m \in \mathbb{N} \setminus \{0\}\}$
+
+![The DFA representing the above language](/images/dfa-1.png)
 
 If a DFA $M$ represents a regular language $R$, then we can state $R = L(M)$, where $L$ is some arbitrary function which returns the set of all valid strings produced by the DFA.
 
@@ -36,6 +38,56 @@ So let's say we were to check if the word $``wolf"$ was in our language. The ful
 $\delta(\delta(\delta(\delta(q_0,w),o),l),f)$
 
 When we're checking the validity of a string in a language, this is called a **run** of the language on that word. In our above example, this is a run of some language $L$ on "wolf". If we end up in an accepting state, we then call this an **accepting run**, so we'd be able to state $wolf \in L(M)$.
+
+## No Figure is Ass
+
+*But they might contain ass*
+
+A **non-deterministic finite automaton** (NFA) shares a lot of common features with DFAs, we can transition between states, but from any given state, we could travel to one of *multiple states*, and we can move between states without consuming any inputs. They consist of the same five-tuple, $(Q, \Sigma, q_0, F, \delta)$, but $\delta$ has a slightly new definition:
+
+$\delta : Q \times (\Sigma \cup \{\epsilon\}) \rightarrow 2^Q$
+
+And an NFA looks like this:
+
+![An NFA](/images/nfa-1.png)
+
+Here, this describes the language of strings that may start with a single $a$, and end with any number of $b$s.
+
+The difference between a DFA and an NFA is, for a DFA we know exactly what path to take, since we are consuming one symbol at a time in our string, and each possible value can only point us in one direction. In an NFA, we may have multiple possible avenues for one symbol (or zero symbols!), so we essentially navigate through states, backtracking if we are unable to progress, until we either exhaust all of our options, or reach an accepting state with no input data left. Backtracking? Oh no... this is bringing back repressed memories of watching a triangle trying to run through exponentially bigger and bigger mazes!
+
+### Trans returns, this time with closure
+
+We can also define $\hat{\delta}$ based on $\delta$, as the set of all final states we can reach after running a string on the NFA. For all states, we say that there exists a run from a state, if $\hat{\delta}(q, w)$ is non-empty. And, an accepting run is one that starts at $q_0$ and ends in an accepting state.
+
+But we also need to deal with those pesky $\epsilon$-transitions. We can do this using $\epsilon$-closure, often denoted as a function $\text{E-CLOSE}(X)$, where $X$ is a subset of states.
+
+$\text{E-CLOSE}(\emptyset) = \emptyset$
+$\text{E-CLOSE}(X) = \bigcup_{x \in X}\text{E-CLOSE}(\{x\})$ where $X \subseteq Q$.
+
+For our example NFA above, we get the following for each state:
+
+$\text{E-CLOSE}(q_0) = \{q_0\}$
+$\text{E-CLOSE}(q_1) = \{q_1, q_2\}$
+$\text{E-CLOSE}(q_2) = \{q_2\}$
+
+On its own, this doesn't really do much for us, but, we can use it to formally define the extended transition function:
+
+$\hat{\delta}(q, \epsilon) = \text{E-CLOSE}(q)$
+$\hat{\delta}(q, wa) = \bigcup_{q' \in \hat{\delta}(q,w)}\text{E-CLOSE}(\delta(q', a))$
+
+### All figures are amusing and not ass
+
+*They may be amusing because they contain ass though*
+
+You may think that NFAs are more powerful than DFAs, since we can move between states without the need for an input, plus we can go in multiple directions, but really, *they're not.* It turns out, even, that you can turn an NFA into a DFA, using just a few steps:
+
+- Start with NFA $(Q, \Sigma, q_0, F, \delta)$ which we want to convert to DFA $(Q_d, \Sigma, q_d, F_d, \delta_d)$.
+- Let $Q_d = 2^Q$, we know this will be finite, and covers every possible state.
+- Let $q_d = \text{E-CLOSE}(q_0)$, since we need to account for $\epsilon$-transitions.
+- We only need *one* finish state to accept, so $F_d = \{X \subseteq Q : \exists x \in X | x \in F\}$
+- Lastly, we just need the transition function, which we define as:
+  - $\delta_d(X,a) = \bigcup_{x \in X}\text{E-CLOSE}(\delta(x,a))$
+  - NB: I think this is correct...
 
 ## The worst nightmare of every developer
 

@@ -2,9 +2,9 @@
 
 A context-free language is one that has some more abilities compared to a regular language: we represent them using context-free grammars or push-down automata. Instead of just being able to extend in one direction as we've seen with regular languages, CFLs can "branch" into one of many different strings, much like the formation of English sentences or if statements in programming.
 
-## Spelling so bad that I'm gonna need context
+## Some of you need to learn this badly
 
-Let's start by covering **context-free grammars**, which tell us the structure by which a CFL can expand. We use a four-tuple to represent these:
+Let's start by covering **grammars**, which tell us the structure by which a language can expand. It's often described as a set of rules to form a word. We use a four-tuple to represent these:
 
 $(V, \Sigma, R, S)$
 
@@ -15,15 +15,23 @@ And here's what each symbol means:
 - $R$ - **Rules**, a subset of $(V \cup \Sigma)^+ \times (V \cup \Sigma)^*$, which describes how a variable translates into a sequence of terminals and variables.
 - $S$ - **Starting variable**, i.e. $S \in V$. This is the variable we start making a string with.
 
-Commonly, you'll see a Context-free Grammar written in terms of its rules, like this:
+Commonly, you'll see a Grammar written in terms of its rules, like this:
 
 $S \rightarrow T, \text{ } T \rightarrow A | B | \epsilon, \text{ } A \rightarrow aT, \text{ } B \rightarrow Tb$
 
-This refers to the language $\{a^*b^*\}$, or any number of $a$s followed by any number of $b$s, which happens to be regular! *Remember that context-free lanuages are a superset of regular languages!*
+This refers to the language $\{a^*b^*\}$, or any number of $a$s followed by any number of $b$s, which happens to be regular! This is an example of a **regular grammar**. We can then see quite clearly that the string $abb$ would be valid, and we call this a **derivation**, since we can form it like this:
+
+$S \rightarrow T \rightarrow A \rightarrow aT \rightarrow aB \rightarrow aTb \rightarrow aBb \rightarrow abb$
+
+A derivation is a **leftmost derivation**, if when we expand out variables, we start with the leftmost one, and work our way to the right.
+
+### Everybody look to the left, everybody look to the right
+
+We can convert a DFA to a Grammar fairly easily, by following the paths in which we could travel. We can either do this starting from the starting state, forming a **right linear grammar**, or from the final state(s), forming a **left linear grammar**. The term "X linear grammar" refers to a grammar where for each rule, we either have one terminal, or a terminal and a variable, with the variable on the *left*, or the *right*.
 
 ## What's the deal with Push-Ups?
 
-*You start by pushing down, not up. \*Seinfeld theme intensifies\**
+*You push down, not up. \*Seinfeld theme intensifies\**
 
 We can also represent CFLs using **Push-down automata** (PDA). These are essentially NFAs, but imagine that we additionally have a stack which we can store additional information on. So, their mathematical notation is quite similar to that of an NFA.
 
