@@ -103,6 +103,22 @@ Done? Good. Let's move on. You'll be pleased to know that, this time, regular ex
 - $R = R_1*$, called **Kleene star**, meaning any number of copies of $R_1$.
 - $R = R_1^+$, called **Kleene plus**, meaning at least one string in $R_1$.
 
+It's also worth noting that you can quite easily convert a regular expression into an NFA (and hence a DFA), and an NFA into a regular expression, but that way is a little harder. I can't be arsed to write about that right now, so let's move on.
+
+### Not to overgeneralise or anything...
+
+We can turn any NFA into a **Generalised Non-deterministic Finite Automaton** (GNFA), which essentially lets us find the substring needed to transition from one state to another. A GNFA is defined like this:
+
+$(Q, \Sigma, q_{start}, q_{accept}, \delta)$ where $\delta : (Q \setminus \{q_{accept}\}) \times (Q \setminus \{q_{start}\}) \rightarrow \mathbin{R}$
+
+(It's meant to be a really fancy looking "R" which represents the set of all regular expressions, but KaTeX doesn't have the syntax for that.)
+
+There's a further contraint made here, that there can be no ingoing transitions into the initial state, nor any outgoing states from the *single* accepting state.
+
+And a *run* on a GNFA over the string $s = s_1, s_2, ..., s_n$ looks like this:
+
+$\forall i \in \{1,2, ..., n\}, s_i = L(\delta(r_{i-1}, r_i))$
+
 ## We're gonna need a bigger coffee
 
 That's right, we can go above a regular language. Be careful to not call such languages *irregular*, they're **Non-regular languages**. So trivially, these are languages which we can't represent using a DFA or RegEx.

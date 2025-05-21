@@ -64,6 +64,24 @@ while (read(input) == 'b') {
 pop(Stack.empty);
 ```
 
+### Putting affection out of context
+
+We can convert PDAs into CFGs, but first we need to make sure that the PDA we're using is *normalised*, which means:
+
+- It only has one accepting state
+  - If not, just make an epsilon-transition to the a new single state.
+- It only accepts a string, if our stack is empty
+  - Simply add the states required to empty the stack after the original accepting state, and make the last one the new accepting state.
+- At any transition, we either push or pop, not both
+  - Easy, just separate these actions out into separate states.
+
+Now we produce rules for every pair of states $p,q \in Q \Rightarrow A_{pq}$.
+
+- $A_{pp} \rightarrow \epsilon$, so do nothing on a self-loop.
+- For any set of three states $p, q, r$, $A_{pq} \rightarrow A_{pr}A_{rq}$
+- If we push a stack symbol $u$ and read $\alpha$ to go from $p$ to $r$, perform some further operations in $A_{rs}$, then pop $u$ and read $\beta$ to get from $s$ to $q$, then $A_{pq} \rightarrow \alpha A_{rs} \beta$.
+
+
 ## Ignore the Wikipedia article for now
 
 Now we talk about Chomsky. Yes, *that* Chomsky. Let's set aside the political stuff for now, and focus on his work in creating the **Chomsky Normal Form** (CNF). This is a standard way of writing context-free grammars, that ensures we don't have *ambiguity*, where a single string may be defined in multiple ways, and allows us to create each string of length $n$ in $2n-1$ steps. A grammar is in CNF if all of the rules fall under one of these definitions:
