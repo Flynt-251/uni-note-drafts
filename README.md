@@ -9,10 +9,10 @@ Below is the list of modules that will be written up, in order of priority.
 - [x] CS260 - Algorithms
 - [x] CS241 - Operating Systems and Computer Networks
 - [x] CS258 - Database Systems
+- [x] CS259 - Formal Languages
 
 ### In the works
 
-- [ ] CS259 - Formal Languages
 - [ ] CS262 - Logic and Verification
 - [ ] CS257 - Advanced Computer Architecture
 - [ ] CS263 - Cyber Security

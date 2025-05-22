@@ -81,6 +81,37 @@ Now we produce rules for every pair of states $p,q \in Q \Rightarrow A_{pq}$.
 - For any set of three states $p, q, r$, $A_{pq} \rightarrow A_{pr}A_{rq}$
 - If we push a stack symbol $u$ and read $\alpha$ to go from $p$ to $r$, perform some further operations in $A_{rs}$, then pop $u$ and read $\beta$ to get from $s$ to $q$, then $A_{pq} \rightarrow \alpha A_{rs} \beta$.
 
+### Putting context out of affection
+
+We can also convert a CFG to a PDA, let's see how this would work by looking at an algorithm that uses a stack (since that's what a PDA basically is).
+
+```java
+// Start by filling the stack so that the leftmost character is at the top.
+Stack s = new Stack(input.get());
+String output = "";
+while (!s.isEmpty()) {
+    GrammarSymbol t = s.pop();
+    if (t.isVariable()) {
+        GrammarSequence tn = t.selectRandomRule();
+        s.push(tn);
+    } else {
+        if (t != s.peek()) {
+            fail("Invalid branch, try again.");
+        } else {
+            output += s.pop();
+        }
+    }
+}
+return output;
+```
+
+Now let's put this into context.
+
+- Start at $q_0$, and transition to $q_1$ with the transition $\epsilon, \epsilon \rightarrow S\_$, so add the empty stack symbol, followed by the starting variable for the RegEx.
+- At $q_1$, self-loop with each of the following rules for the leftmost symbol (or top of the stack):
+  - For a variable $A \rightarrow B$, do transition $\epsilon, A \rightarrow B$.
+  - For a terminal $a$, do transition $a, a \rightarrow \epsilon$.
+- To get from $q_1$ to $q_2$, the accepting state, read the empty stack value, i.e. $\epsilon, \_ \rightarrow \epsilon$.
 
 ## Ignore the Wikipedia article for now
 
@@ -134,6 +165,31 @@ $U_1 \rightarrow AA$
 $U_2 \rightarrow BB$
 $V_a \rightarrow a$
 $V_b \rightarrow b$
+
+## I'm a mature adult, I swear
+
+Naturally, we may ask *"is it possible to check if a string can be formed from a CFG?"*, to which we can say *"yes, but buckle up since we have to use 2D Dynamic Programming!"* This describes the functionality of the **Cocke-Younger-Kasami (CYK) Algorithm**, which determines the construction of a string in a "Chomskified" CFG (see above). For this 2D array, each cell stores a variable, with each row creating a representation of the whole string, and each column representing a substring which forms part of the construction.
+
+We start by directly translating each terminal in the string, to the left-hand side value of its rule. Then, we group each of these variables into two and translate these pairs to their originating variable. This keeps going until we reach the final/start variable, $S$. If we don't reach $S$ by the end, then this means the string cannot be part of the language.
+
+If you like pseudocode, enjoy.
+
+```java
+Variables[][] m = new Variables[n][n];
+// Set first row of m to the input string
+for (int i=2; i<n; i++) { // Rows
+    for (int j=1; j<n-(i-1); j++) { // Columns
+        for (int p=1; p<i-1; p++) { // Distance between variables checked
+            m[i][j] = union(
+                m[i][j],
+                reverseRule(m[p][j], m[i-p][j-p])
+                // Gets R of R -> XY.
+            );
+        }
+    }
+}
+return m;
+```
 
 ## We're gonna need a bigger... context?
 
