@@ -66,6 +66,10 @@ If anything, make sure you at least know the following four things about a desig
 
 Even without remembering any of the content in this model, you should be familiar with **Encapsulation**, **Inheritance**, **Iteration** and **Exceptions**. These each have a problem that they solve, which have some negative behaviours.
 
+## The joy of creation (patterns)
+
+**Creational Patterns**, as the name might suggest, focus on the ways that classes are defined, and how objects are created.
+
 ### The children yearn for the production lines
 
 *Nothing beats the sweat and heat from working 12 hours a day in the factories*
@@ -305,6 +309,10 @@ public class VictoriaDeluxe extends MultiLayerCake {
 }
 ```
 
+## About as well-structured as a Twitter argument
+
+**Structural Patterns** are useful in making implementations easier by acknowledging how objects interact between each other.
+
 ### Getting someone else to do your dirty work
 
 *Your secret's safe with me...*
@@ -364,3 +372,75 @@ A **Proxy Design Pattern** is a fancy way to describe a placeholder. Like what y
 **Pros:** Lower memory usage.
 
 **Cons:** Some data may need to be re-calculated, increasing CPU load, and code complexity increases.
+
+## Devs behaving badly
+
+**Behavioural Patterns** describe how objects *interact* with each other. If we're able to standardise such behaviour, we can make it much easier to implement objects' communications.
+
+### Again and again and again and again...
+
+*Like how it feels revising at the moment...*
+
+**Name:** Iterator Pattern
+
+**Problem:** A class needs to be traversed over, needing its own function to organise data, potentially cluttering up the code.
+
+**Solution:** Use a language-standard class to create a linear structure that can be looped over, an *iterator*. These are standard in Python and Java.
+
+**Pros:** Single responsibility principle, and lots of flexibility, e.g. multiple types of iterator, ability to iterate in parallel, pause, etc.
+
+**Cons:** Not a one-size-fits-all solution, some classes are highly specialised.
+
+### Like and Subscribe to watch me blow u-
+
+*We're not doing this again.*
+
+**Name:** Observer Pattern
+
+**Problem:** Some object (subscriber) needs to check for a change in state of another object (publisher), but constantly checking this other object is very inefficient.
+
+**Solution:** Subscribers can opt in or *"subscribe"* to a publisher to get updates. Once the publisher changes state, it notifies its subscribers (push notify). This can work the other way too, with subscribers asking publishers if they have updated (pull notify).
+
+**Pros:** Easy and dynamic interface for subscribers to access publishers, no need to directly tether the two, requiring a redesign of the code.
+
+**Cons:** Not entirely deterministic, we can't be sure what order in which subscribers are notified by a publisher.
+
+### "Take this as a memento"
+
+*I remember this bit from Tomodachi Life and I actually cried.*
+
+**Name:** Memento Pattern
+
+**Problem:** We need to be able to *undo* certain actions without exposing the functionality of objects, such as superclasses.
+
+**Solution:** Implement a *snapshot* class which takes in objects, and can restore information from these as necessary. A *caretaker* class can then store these snapshots and trigger restoration as needed. This encapsulates the undo function inside of another class, ensuring we keep the original class's workings unexposed.
+
+**Pros:** Ensures we don't violate encapsulation, while still retaining important information.
+
+**Cons:** Uses lots of memory and needs its own garbage collection to remove unneeded snapshots. Likewise, dynamic programming languages may alter the memento due to garbage collection or type casts.
+
+### 4D Chess
+
+*Every politician's favourite game!*
+
+**Name:** Strategy Pattern
+
+**Problem:** We have multiple different ways to solve a problem, and we need to select one particular way, based on our input.
+
+**Solution:** Implement an abstract *strategy* class which then has a concrete class for each solution we want to implement. We can then determine the correct solution to use, when needed.
+
+**Pros:** More modular, we can swap out an implementation later on quite easily, while additionally keeping us from needing to touch the original code and adding additional complexity to the class hierarchy.
+
+**Cons:** Pointless if there are only a few algorithms to choose from, plus we need to understand how each strategy is different. Also... anonymous functions??
+
+## Solid as Iraq!
+
+*Wait no, solid as a rock, I've got Arrested Development on the mind...*
+
+Either way, following **SOLID Principles** ensures that code written in Object-Oriented Programming Languages can be kept easy-to-understand, maintainable and flexible. Not much is worse than trying to de-tangle spaghetti code!
+
+- **Single Responsibility** - Each class should be responsible for just one piece of functionality.
+- **Open/Closed** - Open for extension, closed for modification, meaning we should always prefer to extend a class to add functionality, not change its original code.
+- **Liskov Substitution** - A child class can act as its parent class without any distinction in behaviour.
+- **Interface Segregation** - Prioritise small, specific interfaces over big, general ones to improve maintainability.
+- **Dependency Inversion** - A higher level class should not depend on a function of a lower level class. Both classes should instead inherit from a common interface, to ensure fewer dependencies.
