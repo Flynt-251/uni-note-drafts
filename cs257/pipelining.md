@@ -182,3 +182,149 @@ Again, cannot occur in the 5-stage pipeline, but may occur in other types of pip
 **Separated Execution Units** - Create multiple execution units with different delays, so that we can purposefully "stall" instructions to prevent hazards.
 
 **Reservation Station** - Relieves a bottleneck in operand fetching, by using a buffer which can load a new instruction into the processor once the relevant functional units are available and hazards have been dealt with.
+
+## I'd like to make a reservation
+
+Up to this point, we've covered how to avoid control and data hazards, but how can we prevent *resource hazards* from occuring, also known as *structural hazards*? We want to create a pipeline that ensures we enable as much throughput as possible, while avoiding these hazards, since they will cause stalls.
+
+### Getting rear-ended by a physicist
+
+We can properly schedule instructions by finding the **reservation table**, which shows us the timings for one instruction over multiple different units, and using this to identify a **collision vector**, which tells us where we can introduce new instructions without causing an overlap or conflict.
+
+Let's say we have the following pipeline stages:
+
+1. Fetch some data from memory
+2. Decode the instruction
+3. Execute the instruction
+4. Update registers
+5. Write-back to memory
+
+And we execute them in the following order (X (Y cycles)):
+
+1 (2 cycles), 2 (1 cycle), 3 (1 cycle), 1 (1 cycle), 4 (1 cycle), 5 (1 cycle).
+
+Now let's make the reservation table for this. Each row represents one stage, and each column, one clock cycle.
+
+|Stage| 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|
+|-----|--|--|--|--|--|--|--|--|--|--|--|--|--|--|
+|    1| x| x|  |  | x|  |  |  |  |  |  |  |  |  |
+|    2|  |  | x|  |  |  |  |  |  |  |  |  |  |  |
+|    3|  |  |  | x|  |  |  |  |  |  |  |  |  |  |
+|    4|  |  |  |  |  | x|  |  |  |  |  |  |  |  |
+|    5|  |  |  |  |  |  | x|  |  |  |  |  |  |  |
+
+It should be pretty clear that we can't introduce a new instruction on every clock cycle for this pipeline, so now we use this table, also known as the **iniital collision vector**, to test where we can add new instructions, and hence construct our *collision vector*, $(C_1, C_2, ..., C_n)$ where $n$ is the largest latency we can apply to introducing an instruction, until we end up simply "appending" the next instruction without utilising multiple stages. For this case, $n = 6$.
+
+For any $C_i$, we set this value to 1, if there is a collision, i.e. two instructions use the same stage at the same time. This is called a **forbidden latency**. If there is no such conflict, then we set this to 0, a **permitted latency**. $C_0$ is always 1, as otherwise we are introducing two instructions at the same time! Not that this matters too much, as we don't include this in the final collision vector.
+
+#### $C_1$
+
+|Stage| 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|
+|-----|--|--|--|--|--|--|--|--|--|--|--|--|--|--|
+|    1| x|**!!**|x+|  | x|x+|  |  |  |  |  |  |  |  |
+|    2|  |  | x|x+|  |  |  |  |  |  |  |  |  |  |
+|    3|  |  |  | x|x+|  |  |  |  |  |  |  |  |  |
+|    4|  |  |  |  |  | x|x+|  |  |  |  |  |  |  |
+|    5|  |  |  |  |  |  | x|x+|  |  |  |  |  |  |
+
+We have a collision here, so $C_1 = 1$.
+
+#### $C_2$
+
+|Stage| 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|
+|-----|--|--|--|--|--|--|--|--|--|--|--|--|--|--|
+|    1| x| x|x+|x+| x|  |x+|  |  |  |  |  |  |  |
+|    2|  |  | x|  |x+|  |  |  |  |  |  |  |  |  |
+|    3|  |  |  | x|  |x+|  |  |  |  |  |  |  |  |
+|    4|  |  |  |  |  | x|  |x+|  |  |  |  |  |  |
+|    5|  |  |  |  |  |  | x|  |x+|  |  |  |  |  |
+
+No collisions here, so $C_2 = 0$.
+
+#### $C_3$
+
+|Stage| 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|
+|-----|--|--|--|--|--|--|--|--|--|--|--|--|--|--|
+|    1| x| x|  |x+|**!!**|  |  |x+|  |  |  |  |  |  |
+|    2|  |  | x|  |  |x+|  |  |  |  |  |  |  |  |
+|    3|  |  |  | x|  |  |x+|  |  |  |  |  |  |  |
+|    4|  |  |  |  |  | x|  |  |x+|  |  |  |  |  |
+|    5|  |  |  |  |  |  | x|  |  |x+|  |  |  |  |
+
+Another collision here, so $C_3 = 1$.
+
+#### $C_4$
+
+|Stage| 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|
+|-----|--|--|--|--|--|--|--|--|--|--|--|--|--|--|
+|    1| x| x|  |  |!!|x+|  |  |x+|  |  |  |  |  |
+|    2|  |  | x|  |  |  |x+|  |  |  |  |  |  |  |
+|    3|  |  |  | x|  |  |  |x+|  |  |  |  |  |  |
+|    4|  |  |  |  |  | x|  |  |  |x+|  |  |  |  |
+|    5|  |  |  |  |  |  | x|  |  |  |x+|  |  |  |
+
+This is getting repetitive... we've got yet another collision so $C_4 = 1$.
+
+#### $C_5$
+
+|Stage| 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|
+|-----|--|--|--|--|--|--|--|--|--|--|--|--|--|--|
+|    1| x| x|  |  | x|x+|x+|  |  |x+|  |  |  |  |
+|    2|  |  | x|  |  |  |  |x+|  |  |  |  |  |  |
+|    3|  |  |  | x|  |  |  |  |x+|  |  |  |  |  |
+|    4|  |  |  |  |  | x|  |  |  |  |x+|  |  |  |
+|    5|  |  |  |  |  |  | x|  |  |  |  |x+|  |  |
+
+Are you also getting bored of this? Even with lots of experience using VSC this is getting really repetitive to duplicate and edit. Anyways, no collisions here so $C_5 = 0$.
+
+#### $C_6$
+
+|Stage| 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|
+|-----|--|--|--|--|--|--|--|--|--|--|--|--|--|--|
+|    1| x| x|  |  | x|  |x+|x+|  |  |x+|  |  |  |
+|    2|  |  | x|  |  |  |  |  |x+|  |  |  |  |  |
+|    3|  |  |  | x|  |  |  |  |  |x+|  |  |  |  |
+|    4|  |  |  |  |  | x|  |  |  |  |  |x+|  |  |
+|    5|  |  |  |  |  |  | x|  |  |  |  |  |x+|  |
+
+There we go... all done! No collisions so $C_6 = 0$.
+
+#### And the result?
+
+We now have the collision vector **101100**. You may think *"Great, so we can introduce instructions after 2, 5 and 6 clock cycles."*. Slow down there. Remember how there's a collision if we have a latency of 1 cycle? The same thing would happen here. We've still got a bit more work to do.
+
+### Who doesn't love MALamutes?
+
+The timings at which we introduce new instructions is known as a **latency cycle**, and is represented as a tuple, e.g. $(1,2,2,1)$, which would mean we introduce new instructions after 1, then 2, 2 again, then 1 cycle. This creates an **average latency** of 1.5 cycles, and we can have a **constant latency** if we introduce instructions at a regular interval. This next step will explore how we create a latency cycle, while achieving the **minimum average latency (MAL)**.
+
+To do this, we use a scheduling strategy. When we introduce a new instruction into the pipeline, we have to "duplicate" the collision vector, since, like we said earlier, the collision vector still doesn't tell us where we *should* put latencies, just where *can* put *one*. There may also be multiple latency cycles we could make, but we need to determine which is the best one. So, we create a *state diagram*, which starts with our original collision vector, then shows how introducing new instructions changes it.
+
+- Start with the original collision vector as a state.
+- Perform left bitwise shifts, appending a 0 to the end of the end of the vector
+  - This represents increasing the latency by 1.
+- Once we *remove* a zero, we've come across a permissible latency, so we can introduce a new instruction at this shifted vector.
+- Create a new state, formed by doing a bitwise OR on this new vector and the original, and assigning a transition based on how many shifts you needed to get there.
+- Repeat for each number of shifts needed to pull out a 0 from the original vector.
+
+Given this information, let's construct the state diagram for 101100. We can do two different numbers of shifts to remove a 0, either 2 or 5, to give us the shifted vectors 110000 and 000000. Let's investigate each of these paths.
+
+- 101100 OR 110000 = 111100
+  - We can perform 5 shifts to get 000000
+  - 101100 OR 000000 = 101100, our original vector, so this loops back to the start.
+- 101100 OR 000000 = 101100, so this is a self-loop.
+
+Giving us the following state diagram:
+
+![State diagram for the collision vector 101100](/images/pipeline-states.png)
+
+In this case, the diagram is very simple, but depending on how our pipeline is structured, we may end up with may different avenues we could go down. We end up with many different cycles to choose from, so here we can use the cycle (2,5), or constant latency 5. Our first option, using both states, is also called a **greedy cycle**, as it selects the transition with the lowest latency, i.e., we introduce a new instruction as soon as possible. This doesn't necessarily give us the MAL, but often it is "close enough". There may even be multiple greedy cycles, which don't start at the original vector.
+
+In this case, our MAL is 3.5 cycles, using the latency cycle of (2,5). The MAL also has the following properties:
+
+- It can't be any lower than the largest number of crosses in any row of the reservation table for the pipeline
+- It's the lowest average latency of any greedy cycle in the state diagram
+- It can't be any higher than the count of 1s in the collision vector, plus 1. This also applies to any average latency for a greedy cycle.
+
+This all checks out, as $3 \leq 3.5 \leq 4$.
+
+It's also important to remember that even with all of this work, our pipeline may still have a high latency, even if we achieve the MAL, so we may want to use this information to try constructing a better pipeline. We may even want to add delays on purpose to improve latency!
