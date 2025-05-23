@@ -124,7 +124,7 @@ So now we've created some dead time where we can't actually do any work. Of cour
 - **Prefetch the Branch Target** - If we come across a branch, fetch its target as well as the next instruction.
 - **Loop Buffer** - Use a small amount of high-speed memory to store the $n$ most frequently accessed instructions in sequence, similar to an instruction cache. Also well-suited to looping instructions.
 - **Branch Prediction** - Can be done via a few different techniques: static approaches such as always or never taking the branch, or using the opcode, or dynamic approaches, alternating or using a history table, which both use previously executed code to make a decision.
-- **Delayed Branch** - Do nothing (see above).
+- **Delayed Branch** - Compute the result of the branch first, allowing other instructions to run in other execution units, avoiding the potential of fetching unusable data. May suffer from dependency issues (see below).
 
 ### My precious precious DATA!
 
