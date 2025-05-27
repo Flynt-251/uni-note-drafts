@@ -1,4 +1,4 @@
-# 1 - Software Methodologies
+# 1 - Software Methodologies and Requirements Analysis
 
 So, you have a client who has asked you to write a piece of software. The first thing you should do is *plan* your solution. Depending on who you are, this is either really exciting or really daunting. Please consult your local personality test website. The methodology you use to make your software will depend on your client's requirements, how often you'll be in contact with them, your time commitment, among other factors (including making sure nobody dies).
 
@@ -119,3 +119,58 @@ Each *sprint cycle* may last anywhere from two to four weeks, with features to f
 ## Prototypes or MVPs?
 
 A **prototype** is meant as a proof-of-concept, and is not meant to release to the public. An **MVP**, or minimum viable product is a deliverable piece of software which can, and usually is, released to the public or early adopters. Which of these two you should focus on when using *agile* methodologies depends on your customer's needs.
+
+## Giving them what they want
+
+Enough babbling, let's get to the drawing board and actually talk about what the customer wants. You'll likely get a specification from your client, so long as it's not your long-distance friend on discord you promised you £2 an hour to build a website for him. We need to turn this into a set of requirements which will lay the foundation of what we want to achieve. *By this stage, you should be casting aside any ideas of implementation.* We're only focussed on what the system should do, not how it should do it. **Requirements Analysis** allows us to bridge the gap between us, the developers, and the client.
+
+### Face-off
+
+Both you and the client will have a different interpretation of the same overarching requirement, so it makes sense then to embrace this, and allow for a client-facing side, and a developer-facing side of the same requirement. **C-requirements and D-requirements**. The former, describes what the system looks like to the end-user, and the latter will start laying the groundwork for the technical requirements of the system, hinting towards the technologies that may be needed.
+
+- C-requirement: Your application should allow users to make changes to their profile on a modern browser.
+- D-requirement: The application should use HTTP POST requests to allow their information to be updated on the server. Legacy browser support is not needed.
+
+### The good, the bad and the... huh?
+
+Overall, our set of requirements needs to be...
+
+- **Prioritised** - What are the most important parts of this system? Is there anything that could realistically be omitted if time doesn't permit time to finish the full product?
+- **Consistent** - None of the requirements should contradict, or override each other, or with any higher requirements, such as those for software or on the business. Saying that the app should always be available but then aiming for 99.9% uptime doesn't make any sense.
+- **Modifiable** - Ideas change, so it should be possible to make changes to these requirements, and to document such changes.
+- **Traceable** - You have a requirement, great, does it link back to what the customer asked for? If not, it may be irrelevant and unnecessary.
+
+And each individual requirement should be...
+
+- **Correct** - Again, is this requirement in-line with what the customer is asking for?
+- **Feasible** - Is it realistic that this can be achieved in the allowed time and resources?
+- **Necessary** - Is this a thing that the customer actually wants? If not, get rid of it, you're snowballing.
+- **Unambiguous** - "The app should be responsive" is vague. What is this referring to? A fast backend? Good UI design? System-level optimised code? We want to avoid these types of situation.
+- **Verifiable** - Is there a way to check that this requirement has been satisfied?
+
+### Time to get the vodka out
+
+We're headed to MoSCoW. Wait, let me start again. **MoSCoW** is an acronym for a possible prioritisation key that you could use to set out the importance of each requirement, while also filtering out bad ones.
+
+- **Must** - This feature needs to be in the system.
+- **Should** - We should have this feature, but not including it in the first release would be okay.
+- **Could** - This should only be considered once we're sure we've nailed everything else.
+- **Won't** - This is a dumb idea and should've never been considered.
+
+### Functional Programming
+
+Sorry, no Haskell here, sadly.
+
+Some requirements may describe a feature that should make up part of the system, others may simply describe the way the system works generally. We can split these off into **functional** and **non-functional** requirements respectively. You may think about this as such: what are the features of this system, what would an end user expect it to do, assuming the performance was perfect? Anything else is a non-functional requirement.
+
+For instance, clicking a button to do something, is a functional requirement. Issues regarding performance or adherence to legislation, are non-functional, since they don't affect what the system does.
+
+### Learning to agree
+
+This all sounds like a fairly linear process, but in reality, there's going to be back-and fourth, as you make versions upon versions of requirements analysis documents, and find a common ground where the client is getting something they want, and you are able to make something without potentially breaking any laws of physics... or laws in general for that matter. It may be necessary to conduct interviews with *stakeholders* to get a better understanding, for instance, and then we can classify requirements, group and prioritise them, before making a specification.
+
+**Requirements Validation** is the process of having all parties review the requirements specification, and agreeing whether or not it suitably describes what is realistic, and sufficient to the client's needs. The requirements should be *valid*, *consistent*, *realistic* and *verifiable*. Once we're sure of what we want to achieve, we may then start a systematic manual analysis, start prototyping, or build some test cases.
+
+### Other bits to consider
+
+Of course, things can change, and the client may come back asking for more (shut it). If we have more requirements, we need to ensure they are also valid and unambiguous (problem analysis), then check the cost of making changes is viable (change analysis), and finally, update the specification (change implementation). We also need to consider the legality of what we're doing. This can even include simple things like placeholder pictures in a demo, all the way to more scary things like... will this be used to hurt people? Oh well, let's get to planning!
