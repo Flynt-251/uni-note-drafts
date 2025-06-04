@@ -23,5 +23,34 @@ While you're testing, you will need to make sure you're complying with the appro
 - **Where you may pass through** - You also need to consider what countries your data may be flowing through, as you'll have to follow their regulations too.
   - Example: Lots of Canada's data may pass through the USA!
 
-You should remember to be especially careful when handling personal data (PD) and personally identifiable information (PII).
+You should remember to be especially careful when handling personal data (PD) and personally identifiable information (PII), particularly minding the following regulations and acts:
+
+- **Computer Fraud and Abuse Act** (US, 1986)
+- **Computer Misuse Act** (UK, 1990)
+- **General Data Protection Regulation** (EU, 2018)
+- **California Consumer Privacy Act** (California US, 2020)
+- **Digital Millennium Copyright Act** (US, 1998)
+
+## Writing it all up
+
+You should of course be logging all of the steps you take, and taking notes of the system and tests as you go. You then need to compile the information from these notes into a report which you hand back to your client, informing them what the results mean, and what steps they should take next. *Don't include raw results data*, instead put this into an appendix. There are a few standard structures for a report:
+
+### PurpleSec
+
+- **Executive Summary** - what happened?
+- **Test Scope and Method** - what was tested and how?
+- **Internal Phase** - write about tests conducted inside the organisation.
+- **External Phase** - write about tests conducted on publicly accessible resources.
+- **Conclusions** - what should your client do, and how severe are any exploits found?
+- **References** - yes, you need these.
+
+### SANS
+
+- **Page Design** - Header/footer formatting, fonts, etc.
+- **Document Control** - Version history and changelog
+- **Report Content**
+- **Executive Summary** - What happened?
+- **Methodology** - How were tests conducted?
+- **Findings** - What vulnerabilities were found? What are their impact and likelihood, and hence what is their risk? What actions could be taken?
+- References, Appendix and Glossary
 
