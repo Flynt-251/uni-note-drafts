@@ -61,6 +61,109 @@ Now that we have some meaning in place, we can determine if certain formulas are
   - $(\forall x \phi)^{I,A}$ is true, *iff* $\phi^{I,A'}$ is true **for each** assignment of $x$ in $A$, which we express as $A'$.
   - $(\exists x \phi)^{I,A}$ is true, *iff* $\phi^{I,A'}$ is true **for some** assignment $x$ in $A$, which we express as $A'$.
 
+If a logical formula $\phi$ is true for all possible assignments in a model, if $\phi^{I,A} = \top$.
+
+A logical formula is *valid*, if for any model, it is always true, and a set of formulas are *satisfiable* if they share an assignment such that all can be true.
+
+Usually, when performing proofs, we quantify away any free variables (so say, there exists, or for all) to convert formulas into sentences. As seen previously, a sentence $X$ is a consequence of the set of sentences $S$ where for any $s \in S$, $s \rightarrow X$, and we write this as $S \vDash X$.
+
 ## Application time
 
 Now we're almost ready to apply this knowledge to solving resolution and tableau proofs, but we just need a couple more definitions, namely $\gamma$- and $\delta$-functions, which allow us to temporarily assign a variable under a universal ($\forall$) or existential ($\exists$) quantifier respectively.
+
+|$\gamma$|$\gamma(t)$|$\delta$|$\delta(t)$|
+|--------|-----------|--------|-----------|
+|$\forall x \phi$|$\phi\{x / t\}$|$\exists \phi$|$\phi\{x / t\}$|
+|$¬\exists x \phi$|$¬\phi\{x / t\}$|$¬\forall \phi$|$¬\phi\{x / t\}$|
+
+Where the phrase $\phi\{x / t\}$ means "substitute the free variable $x$ for bounded value $t$".
+
+When proving a formula, we use the set **par**, which is short for par parameters, which is a set of constants that is disjoint from $C$ in $L(R,F,C)$. We include these constants in $L^{\text{par}}$.
+
+## Back to tableau
+
+Tableau proofs are similar to what we've done prior, but now we introduce two new rules:
+
+|**$\gamma$**|**$\delta$**|
+|-|-|
+|$\gamma(t)$|$\delta(p)$|
+
+Where $t$ is a closed term, so one of those new constants we defined in $L^{\text{par}}$, and $p$ is a new parameter that we haven't introduced yet, so this is essentially saying "we can find some possible assignment which we define as $p$.
+
+### Example
+
+Prove the formula $\phi = \forall x (P(x) \vee Q(x)) \rightarrow (\exists x P(x) \vee \forall x Q(x))$.
+
+What this is saying, in simple terms is, "For any possible value, if either of P(x) or Q(x) are true, then either Q(x) holds for all values, or there's some value where P(x) holds".
+
+First, we should start by negating this expression.
+
+$¬(\forall x (P(x) \vee Q(x)) \rightarrow (\exists x P(x) \vee \forall x Q(x)))$ (1)
+
+Then, we can perform an alpha-expansion, since the negative of an implication is conjunctive.
+
+$\forall x (P(x) \vee Q(x))$ (2)
+
+$¬(\exists x P(x) \vee \forall x Q(x))$ (3)
+
+Then perform another alpha-expansion on (3).
+
+$¬\exists x P(x)$ (4)
+
+$¬\forall x Q(x)$ (5)
+
+Now we need to start introducing some new stuff. We'll use a delta-expansion on (5). It makes sense to do this first, as we should re-use variables we introduce in gamma-reductions.
+
+$¬Q(r)$ (6)
+
+This then lets us do gamma-expansions on (4) and (2), reusing $r$.
+
+$¬P(r)$ (7)
+
+$P(r) \vee Q(r)$ (8)
+
+The last thing we can do here is a beta-expansion, so we branch.
+
+$P(r)$ (9a)
+
+$Q(r)$ (9b)
+
+And we can immediately see that both (9a) and (9b) have contradictions with (7) and (6) respectively, hence we have a closed proof.
+
+## Re-resolution
+
+We use the same new rules as we did in tableau proof.
+
+### Example
+
+Prove $\exists x \forall y R(x,y) \rightarrow \forall y \exist x R(x,y)$.
+
+Start by putting the negation into a DNF.
+
+$[¬(\exists x \forall y R(x,y) \rightarrow \forall y \exist x R(x,y))]$ (1)
+
+And immediately split this into two using an alpha-reduction again.
+
+$[\exists x \forall y R(x,y)]$ (2)
+
+$[¬(\forall y \exist x R(x,y))]$ (3)
+
+Then, once more, we do a delta-expansion on (2).
+
+$[\forall y R(p,y)]$ (4)
+
+And another one on (3), since the negation of "for all" is, there exists a violating value...
+
+$[¬\exists x R(x,q)]$ (5)
+
+Hmm, we can see that a contradiction is forming here. Let's do the two resulting gamma-expansions.
+
+$[R(p,q)]$ (6) from (4)
+
+$[¬R(p,q)]$ (7) from (5)
+
+And (6) and (7) clearly contradict, so we can merge the two DNFs here to get an empty clause.
+
+$[]$ (8)
+
+As before, a set of sentences $S$ has the consequence $X$, if we can form a closed tableau and resolution proof for any sentence from $S$ and $X$.
