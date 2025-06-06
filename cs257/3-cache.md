@@ -87,3 +87,52 @@ We may also use **inclusive policy**, where if we experience a cache miss on L2,
 ## Lastly, a W from Harvard
 
 If you've done A-Level computer science, you may recall Von-Neumann and Harvard architecture, and how modern computers use both architectures. They do this, by storing instructions and data in main memory, but have separated instruction and data caches, typically just at L1 (i.e., the lowest possible level). Instruction cache is read-only for the CPU, we don't need to modify instructions.
+
+## Missing your shot
+
+Let's go back to talking about access time: we mentioned how we want to improve performance by lowering our hit time, miss ratio and the miss penalty: how can we do that? Well, there are a few techniques, but first, we should understand that there are four types of cache miss.
+
+- **Compulsory** - We're accessing a new section of memory: we can't avoid this type of miss.
+- **Capacity** - We've ran out of space and we need to swap blocks out.
+- **Conflict** - Specific to direct and set-associative maps, where multiple addresses lead to "collisions".
+- **Coherence** - Unique to multiprocessors, where data becomes invalid because another processor has modified it.
+
+Now for the fixes!
+
+### Blocks. Big ones.
+
+First, **just increase the block size and store more words**! This takes advantage of *spacial locality*, but since we are transferring more data, we end up increasing the miss penalty. Usually we aim for a block size that hits the sweet spot between maximising the hit ratio, while not making the miss penalty too high.
+
+> Miss rate goes down, *miss penalty goes up.*
+
+### Just download more RAM
+
+Or, cache, in this case. As in, just build bigger caches. While this does reduce misses, we end up with greater power consumption and longer hit times, as we have more cache lines to keep track of.
+
+> Miss rate goes down, *hit time goes up.*
+
+### Associate with more people
+
+Increasing the size of our sets in set-associative caches means fewer collisions happen, reducing conflict misses, but can cause longer hit times as, again, we end up checking more cache lines.
+
+> Miss rate goes down, *hit time goes up.*
+
+### Spenny on multiple levels
+
+Deploy multi-level caches! These reduce the miss penalty, and allow us to make faster lower-level caches.
+
+> Miss penalty goes down.
+
+### Before you start writing, read.
+
+**Prioritise reads over writes.** If we encounter a write miss, place the write in a **write buffer**, and keep it there until the relevant memory address is read, a read miss will occur and we can instead use the data in the buffer. This is also called a *read-after-write hazard*.
+
+> Miss penalty goes down.
+
+### No need to translate, I'm fluent.
+
+We've currently worked with the idea of first identifying a line in cache using a tag and index. What if there was a way of just needing to use the index? This is what a **Virtually Indexed, Physically Tagged (VIPT)** cache achieves. Its size is limited by the number of offset bits that we use in our CPU address, and the VIPT cache uses the offset as its own index, plus a smaller, byte offset, to then return a tag. This is compared with the tag given by a Translation Lookaside Buffer, who has been given the same CPU address and if these match, the cache data is valid. If not, fetch from memory.
+
+This can only be our L1 cache, since it relies on the offset of a CPU address. This greatly limits the structure of the cache, but we can still increase the size of it by making it (bigger) set-associative.
+
+> Hit time goes down.
