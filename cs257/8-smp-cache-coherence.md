@@ -1,4 +1,4 @@
-# Symmetric Multiprocessing and Cache Coherence
+# 8 - Symmetric Multiprocessing and Cache Coherence
 
 **Symmetric Multiprocessing (SMP)** simply describes the multicore architecture that has now become the standard on processors today: Even low-end systems feature processors with at least four cores, while the latest server offerings can have as much as 192 cores. Having multiple cores means we can do more work at any given time, enable multitasking, pry open the door to parallel computation, and serve thousands of web clients all at the same time. That being said, when we're doing more than one thing at once, we need to make sure we're still keeping our cache in a useful state, giving us a need for **cache coherence**.
 

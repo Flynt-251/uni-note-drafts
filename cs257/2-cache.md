@@ -1,4 +1,4 @@
-# 3 - Cache Memory
+# 2 - Cache Memory
 
 Cache acts as an intermediary between CPU registers, which are often designed for at most a few entries of data, and main memory, which can be relatively slow to access. Hence, the purpose of cache is to **store data and instructions that are frequently used**, all while being significantly faster than accessing from main memory. Usually this is achieved by placing the cache on the same die as the processor itself, but in previous years, it wasn't unheard of to have it on the motherboard. Cache usually has **levels**, where for two levels $i$ and $i+1$, the $i$th level has faster access times, and the $i+1$th level has higher capacity.
 

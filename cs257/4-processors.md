@@ -1,4 +1,4 @@
-# 5 - Processor Organisation
+# 4 - Processor Organisation
 
 Storing stuff and writing code to be as fast as possible is great and everything, but... what are we even processing and running our code and data on? Well, a **central processing unit**, or CPU, of course! But we probably ought to know how a CPU even works... at least we're part of the way there since we already covered cache.
 

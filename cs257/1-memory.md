@@ -1,4 +1,4 @@
-# 2 - Memory
+# 1 - Memory
 
 We know that, at a basic level, the CPU processes data and runs instructions, and the memory holds instructions that are to be ran by the CPU. In this section we look at how memory has been optimised to be as efficient as possible.
 

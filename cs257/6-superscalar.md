@@ -1,4 +1,4 @@
-# Superscalar Architectures
+# 6 - Superscalar Architectures
 
 We've just looked at pipelining, which makes sure we're using as much of the CPU as we possibly can at any time. We've also come to realise that doing this presents some hazards as we may come into resource conflicts, issues with branching, or possibly execute code in the wrong order. These all assume we have one ALU, CU, etc... why not have multiple ALUs, CUs and so on? Well, this is exactly what superscalar architecture does! Note that this is different from a multicore architecture, where separate code runs on each core. *A superscalar architecture is still only capable of running one process on a single core.*
 

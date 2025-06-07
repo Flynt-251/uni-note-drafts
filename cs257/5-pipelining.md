@@ -1,4 +1,4 @@
-# Pipelining
+# 5 - Pipelining
 
 Let's say you're at home, and you have a few different things that need doing. You need to study for an upcoming exam (how meta), do your laundry, and cook some food for the week. You *could* do one task at a time, waiting for the laundry to finish so you can put it up to dry, then prepare the food and wait for it to cook, then go and study. However, there's a lot of dead time doing that. So *instead*, what you do is put your laundry on, and as the machine does its work, you go and get started on cooking. Once you've started letting it simmer/roast/bake, your hands are then free to study. You'll empty the washing machine out once it's done, and cool the food off once it's finished cooking. This is the basic concept of **pipelining**.
 

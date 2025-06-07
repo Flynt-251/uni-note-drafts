@@ -1,4 +1,4 @@
-# Parallel Processing
+# 7 - Parallel Processing
 
 They say two minds are better than one, the more the merrier, and many hands make light work. Somewhere along the line, we hit a plateau in making processors physically faster, and so decided to switch to essentially, increasing the number of processors that we fit into one package. Nowadays it's common for CPUs to have at least four **cores**, which are essentially just independent processors all in the same physical space.
 

@@ -1,4 +1,6 @@
-# State of the Art Architecture
+# A - State of the Art Architecture
+
+*Uh oh, we're using hexadecimal values now!*
 
 We now know some of the advancements made in the past to make computers run as fast as we possibly can, but what does the future of hardware design look like? We answer that question here, by looking at some emerging technologies. Many people believe we are coming to the end of Moore's law, as we have consistently fell behind the predicted transistor count on leading CPUs: the reality is, you can only pack things so closely until you start reaching atomic limits and things start getting unstable. Furthermore, on multicore architectures, only a small percentage of cores can operate at the full frequency at any given time, those that can't are known as *dark silicon*. So how else can we improve performance?
 

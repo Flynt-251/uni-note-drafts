@@ -1,4 +1,4 @@
-# 4 - Code Optimisation
+# 3 - Code Optimisation
 
 One of the biggest questions we ask when writing code is *"How do we make it faster?"*, and usually we can answer that using information learnt in [CS260](/cs260/), but we can usually add some, shall we say, *hardware specific* changes. We can optimise code, broadly using at least one of the three following methods:
 
