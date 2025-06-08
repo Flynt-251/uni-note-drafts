@@ -12,10 +12,10 @@ Below is the list of modules that will be written up, in order of priority.
 - [x] CS259 - Formal Languages
 - [x] CS261 - Software Engineering
 - [x] CS257 - Advanced Computer Architecture
+- [x] CS262 - Logic and Verification
 
 ### In the works
 
-- [ ] CS262 - Logic and Verification
 - [ ] CS263 - Cyber Security
 
 First year modules will *not* have notes written up, as there are already links to other great resources for these modules, some of which have been written by me. The content of these modules is more general anyway.
