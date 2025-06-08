@@ -6,7 +6,7 @@ Logic is very simple, we take statements with either "yes" or "no" answers, comb
 
 *Plankton accidentally becomes a force of destruction greater than the US*
 
-We distinguish logical statements in two ways, atomic and compound. An **atomic proposition** is one that can't be split, and itself has a value of either yes or no. An example of an atomic proposition might be "Are you having coffee?", or "Is this a pigeon?": there's no components of the problem here. By contrast, a **compound proposition** has at least two parts to it, to constitute its final yes or no value. Such formulas may include "Are you coming, and will you bring vodka?" or "Will you play Smash Bros or Mario Kart?". Here, the structure of the sentences is important:
+We distinguish logical statements in two ways, atomic and compound. An **atomic proposition**, or **literal**, is one that can't be split, and itself has a value of either yes or no. An example of an atomic proposition might be "Are you having coffee?", or "Is this a pigeon?": there's no components of the problem here. By contrast, a **compound proposition**, or **non-literal**, has at least two parts to it, to constitute its final yes or no value. Such formulas may include "Are you coming, and will you bring vodka?" or "Will you play Smash Bros or Mario Kart?". Here, the structure of the sentences is important:
 
 $\text{Coming to party} \rightarrow \text{Bringing vodka}$
 
@@ -156,7 +156,7 @@ To convert an expression $X$ to CNF, do the following:
 
 - Place $X$ into $\langle [X] \rangle$.
 - For each expression $D_i$ in $\langle D_1, D_2, ..., D_n \rangle$...
-  - For each literal $N$ in $D_i$...
+  - For each expression $N$ in $D_i$...
     - If $N = ¬\top$, replace with $\bot$
     - If $N = ¬\bot$, replace with $\top$
     - If $N = ¬¬Z$, replace with $Z$.
@@ -170,7 +170,7 @@ To convert an expression $X$ to DNF, do the following:
 
 - Place $X$ into $[ \langle X \rangle ]$.
 - For each expression $D_i$ in $[D_1, D_2, ..., D_n]$...
-  - For each literal $N$ in $D_i$...
+  - For each expression $N$ in $D_i$...
     - If $N = ¬\top$, replace with $\bot$
     - If $N = ¬\bot$, replace with $\top$
     - If $N = ¬¬Z$, replace with $Z$.
