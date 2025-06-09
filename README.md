@@ -1,22 +1,8 @@
 # Drafts of revision notes for twofiveone.xyz
 
+## GOOD NEWS! All notes are now on the website!
+
 This is a repo to store all of the drafts for revision notes which will be published on my personal website, [twofiveone.xyz](https://twofiveone.xyz/resources/). Here you can browse the latest changes to notes I've made, point out errors to fix in the content, or suggest additional content you think might be helpful!
-
-Below is the list of modules that will be written up, in order of priority.
-
-### Complete
-
-- [x] CS260 - Algorithms
-- [x] CS241 - Operating Systems and Computer Networks
-- [x] CS258 - Database Systems
-- [x] CS259 - Formal Languages
-- [x] CS261 - Software Engineering
-- [x] CS257 - Advanced Computer Architecture
-- [x] CS262 - Logic and Verification
-
-### In the works
-
-- [ ] CS263 - Cyber Security
 
 First year modules will *not* have notes written up, as there are already links to other great resources for these modules, some of which have been written by me. The content of these modules is more general anyway.
 
