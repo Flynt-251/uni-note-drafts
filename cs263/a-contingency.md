@@ -1,4 +1,4 @@
-# Contingency Planning
+# A - Contingency Planning
 
 No matter how hard we try to defend against cyber attacks, unfortunately, shit happens, so we need a solid plan for when things do go wrong, hence, **Contingency Planning (CP)** (that's an unfortunate abbreviation...). Contingency Planning defines how we recover from an incident such as a DDoS attack or data leak, such that we can resume normal operation as soon as possible, while ensuring minimal cost and disruption. It's important we have this in place, as an attack or failure can be seriously devastating: FEMA found that 40% of businesses don't reopen after a disaster. We should also make sure to involve all managers, IT staff and information security staff in planning and make sure everyone agrees with the steps that should be taken. We split contingency planning into four types: Incident Response, Disaster Recovery, Business Continuity and Crisis Management.
 

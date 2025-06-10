@@ -1,4 +1,4 @@
-# OSINT
+# 3 - OSINT
 
 If you're the type who will spend hours on end googling their hyperfixation, you might like **Open Source Intelligence (OSINT)**, as it's all about using public knowledge to find out as much as you can about your target as possible. OSINT is usually a part of reconnaissance, where you determine what targets you want to scan or attempt to crack, as part of a penetration test, making sure you take plenty of notes about this. There's no hacking, or using insider information just yet. That being said, we can find information just about *anywhere* on the internet, including news articles, google maps, linkedin accounts, or even reddit. Good old reddit, the sanctuary of random useful tidbits of information. Of course, people do like to lie on the internet, so take what you see with a grain of salt at times.
 

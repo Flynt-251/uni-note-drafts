@@ -1,4 +1,4 @@
-# Program Security
+# 8 - Program Security
 
 Is `n = n + 1` a secure program? Not necessarily. This value `n` might already be at its maximum value and so incrementing it will cause it to overflow. It might not even be a numerical value, so adding 1 could seriously mess things up. These are the kinds of things you need to consider when creating secure programs: we need thorough and standardised testing, so that we can be certain that the software we deliver is reliable, and can uphold the CIA triad.
 

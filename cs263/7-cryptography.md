@@ -1,4 +1,4 @@
-# Cryptography and Hashing
+# 7 - Cryptography and Hashing
 
 Cryptography plays a major role in cybersecurity, or rather, security as a whole. It's what lets us keep confidential information hidden to prying eyes, verify the integrity of files we download off the internet, and send messages to one another without the fear of having your darkest, deepest secrets being shared with anyone else. Unless someone happens to look at your phone over your shoulder, but if that happens while you're home alone, you've got bigger things to worry about.
 

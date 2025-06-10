@@ -1,4 +1,4 @@
-# Scanning
+# 4 - Scanning
 
 After we've gone through the formalities of penetration testing, and done our background research, it's time to take a look at what we're up against, so scanning gives us an overview of what machines, services, subdomains and operating systems are available. There are a few different types of scanning, each providing different useful information:
 

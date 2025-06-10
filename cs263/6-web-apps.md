@@ -1,4 +1,4 @@
-# Web Application Security
+# 6 - Web Application Security
 
 Like it or not, web applications are ubiquitous nowadays, and maintaining their security is paramount, as almost anyone in the world can access and use them however they like (regardless of your TOS of course). Note that this isn't the same as penetration testing, as that tends to refer to closed-off subnets, testing for flaws and identifying vulnerabilities in them. Web application testing means we're testing the security of a web and/or mobile app, possibly replicating a real-life cyber attack on these services. Note that this may also include static code testing, and hence web app testing may make up part of the software development cycle.
 

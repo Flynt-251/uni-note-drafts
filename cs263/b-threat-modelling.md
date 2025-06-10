@@ -1,4 +1,4 @@
-# Threat Modelling
+# B - Threat Modelling
 
 Often it is useful to draw up an overview of how a system or network works, and how data is transferred between devices, to identify potential threats and properly prioritise fixes. This way, we patch up any clear pitfalls which could easily be exploited. The goal is to find **mitigations** which reduce the **liklihood** of an exploit being carried out, and/or reduce its potential **impact**.
 
